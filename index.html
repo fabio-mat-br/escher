@@ -1,0 +1,104 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container"></div>
+    <p>Basedo em <a href="http://euler.slu.edu/escher/index.php/Tessellations_by_Recognizable_Figures">http://euler.slu.edu/escher/index.php/Tessellations_by_Recognizable_Figures</a></p>
+    <script src="kinetic-v5.0.0.min.js"></script>
+    <script defer="defer">
+    function multiplyMatrix(m1, m2) {
+        var result = [];
+        for(var j = 0; j < m2.length; j++) {
+            result[j] = [];
+            for(var k = 0; k < m1[0].length; k++) {
+                var sum = 0;
+                for(var i = 0; i < m1.length; i++) {
+                    sum += m1[i][k] * m2[j][i];
+                }
+                result[j].push(sum);
+            }
+        }
+        return result;
+    }
+    
+    function Translate(points, x, y) {
+      debugger;
+      temp_points = [];
+      for(i = 0; i < points.length; i = i + 2)
+      {
+        temp_points[i] = temp_points[i] + x
+        temp_points[i + 1]= temp_points[i + 1] + y;
+      }
+      return temp_points;
+    }
+     
+  function Rotate(points, angle) {
+    return points;
+  }  
+     
+      
+      var origin = {x:0, y: 0};
+      var stage = new Kinetic.Stage({
+        container: 'container',
+        width: 600,
+        height: 600
+      });
+
+      var elements = {
+        square: [
+          origin.x      , origin.y, 
+          origin.x      , origin.y + 100, 
+          origin.x + 100, origin.y + 100, 
+          origin.x + 100, origin.y ],
+        kite : [
+          origin.x      ,  origin.y + 50, 
+          origin.x + 75 , origin.y  , 
+          origin.x + 125, origin.y + 50, 
+          origin.x + 75 , origin.y + 100        
+        ],
+        arm: [
+          origin.x     , origin.y,
+          origin.x     , origin.y + 50,
+          origin.x + 20, origin.y + 50
+        ]
+        
+      };
+      
+      var layer = new Kinetic.Layer();
+
+      var poly = new Kinetic.Line({
+        points: elements.arm,
+//        fill: '#00D2FF',
+        stroke: 'black',
+        strokeWidth: 1,
+        closed: false
+      });
+
+      var poly2 = new Kinetic.Line({
+        points: elements.arm,
+//        fill: '#00D2FF',
+        stroke: 'black',
+        strokeWidth: 1,
+        closed: false
+      });
+      
+
+      // add the shape to the layer
+      layer.add(poly.move({x: 100, y: 100}));
+      layer.add(poly2.move({x: 100, y: 100}).rotate(72).scale({x:-1,y:1}));
+
+
+
+      // add the layer to the stage
+      stage.add(layer);
+      //stage.add(layer);
+    </script>
+  </body>
+</html>
